@@ -14,7 +14,7 @@ Before running the application, ensure you have the following installed:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/AtharvaKulkarniIT/mern-todo-app.git
+git clone https://github.com/arshaimran/mern-todo-app-team.git
 ```
 
 ### 2. Install dependencies
@@ -74,3 +74,7 @@ Feel free to contribute to this project by submitting pull requests.
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/AtharvaKulkarniIT/mern-todo-app/blob/main/LICENSE) file for details.
 
+##
+By: 
+Arsha Imran
+Aqsa Zeeshan
