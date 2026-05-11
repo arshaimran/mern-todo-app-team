@@ -1,1 +1,75 @@
-staging
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    # FRONTEND SETUP
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Install Frontend Dependencies
+      run: |
+        cd TODO/todo_frontend
+        npm install
+
+    - name: Build Frontend
+      run: |
+        cd TODO/todo_frontend
+        npm run build
+
+    - name: Run Frontend Tests
+      run: |
+        cd TODO/todo_frontend
+        npm test -- --watchAll=false
+
+    # SIMPLE LINT CHECK
+    - name: Run Lint
+      run: |
+        cd TODO/todo_frontend
+        npx eslint src || true
+
+    # BACKEND DEPENDENCIES
+    - name: Install Backend Dependencies
+      run: |
+        cd TODO/todo_backend
+        npm install
+
+    # SSH DEPLOYMENT
+    - name: Deploy to Staging EC2
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.STAGING_HOST }}
+        username: ${{ secrets.STAGING_USER }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          cd ~/mern-todo-app-team
+
+          git pull origin main
+
+          cd TODO/todo_backend
+          npm install
+          pm2 restart backend
+
+          cd ../todo_frontend
+          npm install
+          npm run build
+
+          pm2 delete frontend || true
+          pm2 start "serve -s build -l 3000" --name frontend
+
+          pm2 save
