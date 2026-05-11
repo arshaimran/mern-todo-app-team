@@ -1,5 +1,4 @@
 name: Deploy to Testing
-
 on:
   pull_request:
     branches:
@@ -10,7 +9,6 @@ on:
 jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
-
     steps:
 
     - name: Checkout Repository
