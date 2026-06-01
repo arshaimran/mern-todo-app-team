@@ -74,6 +74,15 @@ Feel free to contribute to this project by submitting pull requests.
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/AtharvaKulkarniIT/mern-todo-app/blob/main/LICENSE) file for details.
 
+## DevOps Features
+
+- Dockerized frontend and backend services
+- Containerized MongoDB integration
+- CI/CD pipeline implementation
+- Automated build and deployment workflow
+- Multi-container application architecture
+- Environment-based configuration management
+
 ##
 By: 
 Arsha Imran
